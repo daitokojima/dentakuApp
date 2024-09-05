@@ -61,38 +61,37 @@ const CalculatorPage = () => {
   // ボタンがクリック時のハンドラー
   const handleClickButton = (value: string) => {
     // 数字か小数点押下時の処理
-    if (!!parseInt(value) || value === "0" || value === ".") {
+    if (parseInt(value) || value === "0" || value === ".") {
       if (!operator) {
-        // operand1を更新
-        const newOperand1 =
-          operand1 === "Error"
-            ? value
-            : value === "." && !operand1.includes(".")
-            ? operand1 + value
-            : operand1.includes(".")
-            ? parseFloat("" + operand1 + value)
-                .toString()
-                .slice(0, 9)
-            : parseInt("" + operand1 + value)
-                .toString()
-                .slice(0, 9);
-
-        return setOperand1(newOperand1);
+        // operatorが選択されていない場合、operand1を更新
+        let newOperand1 = operand1;
+        if (value === ".") {
+          if (!operand1.includes(".")) {
+            newOperand1 = operand1 + ".";
+          }
+        } else {
+          if (operand1 === "0" || operand1 === "Error") {
+            newOperand1 = value;
+          } else {
+            newOperand1 = operand1 + value;
+          }
+        }
+        setOperand1(newOperand1);
       } else {
-        // operand2を更新
-        const newOperand2 =
-          !!operand2 && value !== "."
-            ? value === "." && !operand2.includes(".")
-              ? operand2 + value
-              : operand2.includes(".")
-              ? parseFloat("" + operand2 + value)
-                  .toString()
-                  .slice(0, 9)
-              : parseInt("" + operand2 + value)
-                  .toString()
-                  .slice(0, 9)
-            : value;
-        return setOperand2(newOperand2);
+        // operatorが存在する場合、operand2を更新
+        let newOperand2 = operand2 || "";
+        if (value === ".") {
+          if (!operand2 || !operand2.includes(".")) {
+            newOperand2 = operand2 + ".";
+          }
+        } else {
+          if (!operand2 || operand2 === "0") {
+            newOperand2 = value;
+          } else {
+            newOperand2 = operand2 + value;
+          }
+        }
+        setOperand2(newOperand2);
       }
     }
 
