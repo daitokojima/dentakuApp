@@ -76,6 +76,10 @@ const CalculatorPage = () => {
             newOperand1 = operand1 + value;
           }
         }
+        // 最大入力桁数を設定
+        if (newOperand1.replace(/[^0-9]/g, "").length > 9) {
+          newOperand1 = newOperand1.slice(0, newOperand1.lastIndexOf(value));
+        }
         setOperand1(newOperand1);
       } else {
         // operatorが存在する場合、operand2を更新
@@ -90,6 +94,10 @@ const CalculatorPage = () => {
           } else {
             newOperand2 = operand2 + value;
           }
+        }
+        // 最大入力桁数を設定
+        if (newOperand2.replace(/[^0-9]/g, "").length > 9) {
+          newOperand2 = newOperand2.slice(0, newOperand2.lastIndexOf(value));
         }
         setOperand2(newOperand2);
       }
