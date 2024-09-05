@@ -20,7 +20,7 @@
 1. 以下コマンドでローカル環境にリポジトリをクローンまたは Zip ファイルをダウンロード
 
 ```bash
-  github repo url
+  git clone https://github.com/daitokojima/dentakuApp.git
 ```
 
 2. コマンドライン（cmd, terminal など）でクローンしたディレクトリに移動
